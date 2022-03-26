@@ -26,7 +26,6 @@ import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.ToggleLayouts as T
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.EwmhDesktops
 import XMonad.Util.WorkspaceCompare
 import XMonad.Util.NamedScratchpad 
 -- Layouts
@@ -191,8 +190,7 @@ myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
                 spawnOnce "nm-applet"
-                spawnOnce "volumeicon"
-                spawnOnce "xautolock -time 5 -locker 'systemctl suspend'"
+                spawnOnce "xautolock -locker 'systemctl suspend'"
                 spawnOnce myTerminal
                 spawnOnce "thunar" 
                 spawnOnce "signal-desktop"
@@ -201,14 +199,13 @@ myStartupHook = do
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
                 spawnOnce "nm-connection-editor"
-                spawnOnce "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x1A1918 --expand true --heighttype pixel --height 14 --monitor 1 --padding 1"
+                spawnOnce "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --heighttype pixel --height 14 --monitor 1 --padding 1"
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmproc1 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmproc2 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmonad $ docks
-         $ ewmh
          $ defaults { 
          logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP  xmobarPP { 
                  ppSep = "   "
