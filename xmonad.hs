@@ -189,6 +189,7 @@ myLogHook = return ()
 --- Autostart ---
 myStartupHook :: X ()
 myStartupHook = do
+                setWMName "X"
                 spawnOnce "nm-applet"
                 spawnOnce "volumeicon"
                 spawnOnce "xautolock -time 5 -locker 'systemctl suspend'"
