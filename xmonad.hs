@@ -11,7 +11,6 @@ import qualified XMonad.StackSet as W
 import qualified Data.Map        as M
 import System.IO
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
 import XMonad.Actions.Navigation2D
@@ -203,15 +202,17 @@ myStartupHook = do
                 spawnOnce "pavucontrol"
                 spawnOnce "nm-connection-editor"
                 spawnOnce "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --heighttype pixel --height 14 --monitor 1 --padding 1"
+
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmproc1 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmproc2 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmonad $ docks
-         $ withUrgencyHook NoUrgencyHook 
+         $ withUrgencyHook NoUrgencyHook
          $ defaults { 
-         logHook = dynamicLogWithPP $ xmobarPP {
+         logHook = dynamicLogWithPP xmobarPP            
+              {
                  ppTitle = const ""
                , ppTitleSanitize = const ""  
                , ppWsSep = " | "
@@ -221,7 +222,7 @@ main = do
                , ppLayout = xmobarColor "green" "black"
                , ppCurrent = xmobarColor "white" "black"
                , ppUrgent = xmobarColor "red" "black"
-          }
+               }
        }
           
 defaults = def { 
