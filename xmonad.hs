@@ -24,10 +24,11 @@ import XMonad.Actions.WithAll
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.ToggleLayouts as T
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.WorkspaceCompare
 import XMonad.Util.NamedScratchpad
+import XMonad.Hooks.StatusBar
+import XMonad.Hooks.StatusBar.PP
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
@@ -219,10 +220,11 @@ main = do
                                >> hPutStrLn xmproc2 x
                , ppLayout = xmobarColor "green" "black"
                , ppCurrent = xmobarColor "white" "black"
+               , ppUrgent = xmobarColor "red" "black"
           }
        }
           
-defaults = defaultConfig { 
+defaults = def { 
       -- simple stuff
         focusFollowsMouse  = myFocusFollowsMouse,
         borderWidth        = myBorderWidth,
