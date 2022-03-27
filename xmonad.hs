@@ -27,7 +27,7 @@ import qualified XMonad.Layout.ToggleLayouts as T
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.WorkspaceCompare
-import XMonad.Util.NamedScratchpad 
+import XMonad.Util.NamedScratchpad
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
@@ -112,6 +112,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_l), spawn "betterlockscreen -l")
       -- Start Code
       , ((mod, xK_o), spawn "code")
+      -- Start Teams
+      , ((mod .|. shiftMask, xK_t), spawn "teams-for-linux")
       -- Start Steam
       , ((mod .|. shiftMask, xK_o), spawn "steam")
       -- Start pavucontol
@@ -206,15 +208,17 @@ main = do
   xmproc1 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmproc2 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmonad $ docks
+         $ withUrgencyHook NoUrgencyHook 
          $ defaults { 
-         logHook = dynamicLogWithPP $ namedScratchpadFilterOutWorkspacePP  xmobarPP { 
-                 ppSep = "   "
+         logHook = dynamicLogWithPP $ xmobarPP {
+                 ppTitle = const ""
+               , ppTitleSanitize = const ""  
+               , ppWsSep = " | "
                , ppOutput = \x -> hPutStrLn xmproc0 x 
                                >> hPutStrLn xmproc1 x 
                                >> hPutStrLn xmproc2 x
-               , ppCurrent = xmobarColor "white" "black" . wrap "[" "]"
-               , ppUrgent = xmobarColor "red" "black" . wrap "!" "!"
-               , ppVisible = xmobarColor "gray" "black" 
+               , ppLayout = xmobarColor "green" "black"
+               , ppCurrent = xmobarColor "white" "black"
           }
        }
           
