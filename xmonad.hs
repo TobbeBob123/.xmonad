@@ -76,7 +76,8 @@ myManageHook = composeAll
 
 --- Layouts ---
 myLayouts = avoidStruts $
--- spacingWithEdge (1-8) for å få spacing rundt vindu
+-- Uncomment hvis du vil ha gaps rundt vindu
+         -- spacingWithEdge 5 $
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
@@ -153,7 +154,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_Tab), sendMessage NextLayout)
       , ((mod, xK_i), sendMessage $ JumpToLayout "mirror")
       , ((mod, xK_f), sendMessage $ JumpToLayout "float")
-      , ((mod, xK_k), sendMessage $ JumpToLayout "3C")
+      , ((mod .|. shiftMask, xK_k), sendMessage $ JumpToLayout "3C")
       , ((mod, xK_c), sendMessage $ JumpToLayout "MC")
       , ((mod .|. shiftMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
@@ -166,7 +167,12 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_u), sendMessage Shrink)
       , ((mod, xK_v), sendMessage Expand)
       , ((mod, xK_Right), nextWS)     
-      , ((mod, xK_Left), prevWS)  
+      , ((mod, xK_Left), prevWS)
+--- Skjermer
+      , ((mod .|. shiftMask, xK_Right), shiftNextScreen)
+      , ((mod .|. shiftMask, xK_Left), shiftPrevScreen)
+      , ((mod, xK_j), nextScreen)
+      , ((mod, xK_k), prevScreen)  
       ]
     ++
 
