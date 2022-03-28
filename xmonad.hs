@@ -25,9 +25,8 @@ import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.ToggleLayouts as T
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.WorkspaceCompare
-import XMonad.Util.NamedScratchpad
-import XMonad.Hooks.StatusBar
-import XMonad.Hooks.StatusBar.PP
+import XMonad.Actions.CycleWS
+import XMonad.Layout.Spacing
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
@@ -35,6 +34,8 @@ import XMonad.Layout.Renamed
 import XMonad.Layout.Spiral
 import XMonad.Layout.Grid
 import XMonad.Layout.SimpleFloat
+import XMonad.Layout.ThreeColumns
+import XMonad.Layout.MultiColumns
 
 --- Definer variable ---
 myTerminal = "kitty"
@@ -75,7 +76,15 @@ myManageHook = composeAll
 
 --- Layouts ---
 myLayouts = avoidStruts $
-            layoutTall ||| layoutSpiral ||| layoutGrid ||| layoutMirror ||| layoutFloat
+-- spacingWithEdge (1-8) for å få spacing rundt vindu
+            layoutTall 
+        ||| layoutSpiral 
+        ||| layoutGrid 
+        ||| layoutMirror 
+        ||| layoutFloat
+        ||| layoutTreeColumns
+        ||| layoutMultiColumns
+
     where
       layoutTall =
                  renamed [Replace "tall"]
@@ -93,7 +102,13 @@ myLayouts = avoidStruts $
                  renamed [Replace "float"]
                  $ smartBorders
                  $ limitWindows 20 simpleFloat
-  
+      layoutTreeColumns =
+                 renamed [Replace "3C"]
+                 $ ThreeCol 1 (3/100) (1/2)
+      layoutMultiColumns =
+                 renamed [Replace "MC"]
+                 $ multiCol [1] 1 0.01 (-0.5)
+
 --- HotKeys ---
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
@@ -138,17 +153,20 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_Tab), sendMessage NextLayout)
       , ((mod, xK_i), sendMessage $ JumpToLayout "mirror")
       , ((mod, xK_f), sendMessage $ JumpToLayout "float")
+      , ((mod, xK_k), sendMessage $ JumpToLayout "3C")
+      , ((mod, xK_c), sendMessage $ JumpToLayout "MC")
       , ((mod .|. shiftMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
       , ((mod, xK_a), windows W.focusMaster) 
       , ((mod, xK_Down), windows W.focusDown)  
       , ((mod, xK_Up), windows W.focusUp)    
-      , ((mod .|. shiftMask, xK_w), windows W.swapMaster) 
       , ((mod .|. shiftMask, xK_Down), windows W.swapDown)
       , ((mod .|. shiftMask, xK_m), promote)
 --- Juster Vindu
       , ((mod, xK_u), sendMessage Shrink)
-      , ((mod, xK_v), sendMessage Expand)                  
+      , ((mod, xK_v), sendMessage Expand)
+      , ((mod, xK_Right), nextWS)     
+      , ((mod, xK_Left), prevWS)  
       ]
     ++
 
@@ -156,7 +174,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 
     [((m .|. mod, k), windows $ f i)
         | (i, k) <- zip (XMonad.workspaces conf) [xK_1 .. xK_9]
-        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)]]
+        , (f, m) <- [(W.greedyView, 0), (W.shift, shiftMask)
+       ]]
     ++
 
     --
@@ -164,7 +183,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     
     [((m .|. mod, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_Up, xK_Left, xK_Right] [0..]
+        | (key, sc) <- zip [xK_y, xK_x, xK_g] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 --- Mus ---
