@@ -27,6 +27,7 @@ import XMonad.Hooks.UrgencyHook
 import XMonad.Util.WorkspaceCompare
 import XMonad.Actions.CycleWS
 import XMonad.Layout.Spacing
+import XMonad.Hooks.ToggleHook
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
@@ -53,7 +54,7 @@ myBorderWidth = 0
 myModMask = mod4Mask
 
 -- WS
-myWorkspaces = ["1","2 Term","3 Signal","4 Thunar","5 Nett","6 Discord","7 Teams","8 Lyd","9 Nett-Ins"]
+myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Nett-Ins","9"]
 
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
@@ -61,18 +62,18 @@ myManageHook = composeAll
     , className =? "dialog"          --> doFloat
     , className =? "download"        --> doFloat
     , className =? "error"           --> doFloat
-    , className =? "Steam" --> doShift "1"
-    , className =? "code-oss" --> doShift "1"
-    , className =? "libreoffice" --> doShift "1"
-    , className =? "lunarclient" --> doShift "1"
-    , className =? "kitty" --> doShift "2 Term"
-    , className =? "Signal" --> doShift "3 Signal"
-    , className =? "Thunar" --> doShift "4 Thunar"
-    , className =? "librewolf" --> doShift "5 Nett" 
-    , className =? "discord" --> doShift "6 Discord"
-    , className =? "teams-for-linux" --> doShift "7 Teams"
-    , className =? "Pavucontrol" --> doShift "8 Lyd"
-    , className =? "Nm-connection-editor" --> doShift "9 Nett-Ins"]
+    , className =? "Steam" --> doShift "10"
+    , className =? "code-oss" --> doShift "10"
+    , className =? "libreoffice" --> doShift "10"
+    , className =? "lunarclient" --> doShift "10"
+    , className =? "kitty" --> doShift "1 Term"
+    , className =? "Signal" --> doShift "2 Signal"
+    , className =? "Thunar" --> doShift "3 Thunar"
+    , className =? "librewolf" --> doShift "4 Nett" 
+    , className =? "discord" --> doShift "5 Discord"
+    , className =? "teams-for-linux" --> doShift "6 Teams"
+    , className =? "Pavucontrol" --> doShift "7 Lyd"
+    , className =? "Nm-connection-editor" --> doShift "8 Nett-Ins"]
 
 --- Layouts ---
 myLayouts = avoidStruts $
@@ -109,7 +110,6 @@ myLayouts = avoidStruts $
       layoutMultiColumns =
                  renamed [Replace "MC"]
                  $ multiCol [1] 1 0.01 (-0.5)
-
 --- HotKeys ---
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
@@ -129,7 +129,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Code
       , ((mod, xK_o), spawn "code")
       -- Start Teams
-      , ((mod .|. shiftMask, xK_t), spawn "teams-for-linux")
+      , ((mod, xK_t), spawn "teams-for-linux")
       -- Start Steam
       , ((mod .|. shiftMask, xK_o), spawn "steam")
       -- Start pavucontol
@@ -143,9 +143,9 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Restart xmonad
       , ((mod .|. shiftMask, xK_r), spawn "xmonad --recompile; xmonad --restart")
       -- Lyd
-      , ((0 , xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
-      , ((0 , xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
-      , ((0 , xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
+      , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
+      , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
+      , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
 --- Layout Hotkeys
       , ((mod .|. shiftMask, xK_s), sendMessage $ JumpToLayout "tall")
       , ((mod, xK_w), sinkAll) 
@@ -172,7 +172,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod .|. shiftMask, xK_Right), shiftNextScreen)
       , ((mod .|. shiftMask, xK_Left), shiftPrevScreen)
       , ((mod, xK_j), nextScreen)
-      , ((mod, xK_k), prevScreen)  
+      , ((mod, xK_k), prevScreen)
       ]
     ++
 
@@ -226,7 +226,7 @@ myStartupHook = do
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
                 spawnOnce "nm-connection-editor"
-                spawnOnce "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --heighttype pixel --height 14 --monitor 1 --padding 1"
+                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --height 20 --monitor 1 --padding 1"
 
 main :: IO ()
 main = do
