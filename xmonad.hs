@@ -54,7 +54,7 @@ myBorderWidth = 0
 myModMask = mod4Mask
 
 -- WS
-myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Nett-Ins","9"]
+myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8","9"]
 
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
@@ -62,10 +62,11 @@ myManageHook = composeAll
     , className =? "dialog"          --> doFloat
     , className =? "download"        --> doFloat
     , className =? "error"           --> doFloat
-    , className =? "Steam" --> doShift "10"
-    , className =? "code-oss" --> doShift "10"
-    , className =? "libreoffice" --> doShift "10"
-    , className =? "lunarclient" --> doShift "10"
+    , className =? "Nm-connection-editor" --> doFloat
+    , className =? "Steam" --> doShift "9"
+    , className =? "code-oss" --> doShift "9"
+    , className =? "libreoffice" --> doShift "9"
+    , className =? "lunarclient" --> doShift "9"
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -73,12 +74,12 @@ myManageHook = composeAll
     , className =? "discord" --> doShift "5 Discord"
     , className =? "teams-for-linux" --> doShift "6 Teams"
     , className =? "Pavucontrol" --> doShift "7 Lyd"
-    , className =? "Nm-connection-editor" --> doShift "8 Nett-Ins"]
+    ]
 
 --- Layouts ---
 myLayouts = avoidStruts $
 -- Uncomment hvis du vil ha gaps rundt vindu
-         -- spacingWithEdge 5 $
+            spacingWithEdge 1 $
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
@@ -136,6 +137,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Start Coreshot
       , ((mod, xK_p), spawn "coreshot") 
+      -- Start Nett instillinger
+      , ((mod .|. shiftMask, xK_n), spawn "nm-connection-editor")
       -- Lukk Vindu
       , ((mod .|. shiftMask, xK_q), kill)   
       -- Quit xmonad
@@ -225,7 +228,6 @@ myStartupHook = do
                 spawnOnce "teams-for-linux"
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
-                spawnOnce "nm-connection-editor"
                 spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --height 20 --monitor 1 --padding 1"
 
 main :: IO ()
