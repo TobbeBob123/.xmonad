@@ -48,12 +48,13 @@ myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 
 -- Border
-myBorderWidth = 0
-
+myBorderWidth = 2
+myFocusColor = "red"
+myNormColor   = "black"
 -- Set super Key
 myModMask = mod4Mask
 
--- WS
+--- WS ---
 myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8","9"]
 
 myManageHook = composeAll
@@ -79,7 +80,7 @@ myManageHook = composeAll
 --- Layouts ---
 myLayouts = avoidStruts $
 -- Uncomment hvis du vil ha gaps rundt vindu
-            spacingWithEdge 1 $
+            spacingWithEdge 2 $
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
@@ -165,7 +166,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_Down), windows W.focusDown)  
       , ((mod, xK_Up), windows W.focusUp)    
       , ((mod .|. shiftMask, xK_Down), windows W.swapDown)
-      , ((mod .|. shiftMask, xK_m), promote)
+      , ((mod .|. shiftMask, xK_Up), windows W.swapUp)
+      , ((mod, xK_space), promote)
 --- Juster Vindu
       , ((mod, xK_u), sendMessage Shrink)
       , ((mod, xK_v), sendMessage Expand)
@@ -267,6 +269,8 @@ defaults = def {
 
         -- hooks, layouts
         layoutHook         = myLayouts,
+        normalBorderColor  = myNormColor,
+        focusedBorderColor = myFocusColor,
         logHook            = myLogHook,
         startupHook        = myStartupHook,
         handleEventHook    = myEventHook,
