@@ -48,7 +48,7 @@ myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 
 -- Border
-myBorderWidth = 2
+myBorderWidth = 1
 myFocusColor = "red"
 myNormColor   = "black"
 -- Set super Key
@@ -64,10 +64,10 @@ myManageHook = composeAll
     , className =? "download"        --> doFloat
     , className =? "error"           --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
-    , className =? "Steam" --> doShift "9"
-    , className =? "code-oss" --> doShift "9"
-    , className =? "libreoffice" --> doShift "9"
-    , className =? "lunarclient" --> doShift "9"
+    , className =? "Steam" --> doShift "8"
+    , className =? "code-oss" --> doShift "8"
+    , className =? "libreoffice" --> doShift "8"
+    , className =? "lunarclient" --> doShift "8"
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -80,7 +80,7 @@ myManageHook = composeAll
 --- Layouts ---
 myLayouts = avoidStruts $
 -- Uncomment hvis du vil ha gaps rundt vindu
-            spacingWithEdge 2 $
+            --spacingWithEdge 2 $
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
