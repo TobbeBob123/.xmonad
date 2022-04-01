@@ -28,6 +28,8 @@ import XMonad.Util.WorkspaceCompare
 import XMonad.Actions.CycleWS
 import XMonad.Layout.Spacing
 import XMonad.Hooks.ToggleHook
+import XMonad.Actions.NoBorders
+import XMonad.Layout.Gaps
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
@@ -48,9 +50,10 @@ myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 
 -- Border
-myBorderWidth = 1
-myFocusColor = "red"
+myBorderWidth = 2
+myFocusColor = "lightblue"
 myNormColor   = "black"
+
 -- Set super Key
 myModMask = mod4Mask
 
@@ -64,10 +67,6 @@ myManageHook = composeAll
     , className =? "download"        --> doFloat
     , className =? "error"           --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
-    , className =? "Steam" --> doShift "8"
-    , className =? "code-oss" --> doShift "8"
-    , className =? "libreoffice" --> doShift "8"
-    , className =? "lunarclient" --> doShift "8"
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -75,12 +74,17 @@ myManageHook = composeAll
     , className =? "discord" --> doShift "5 Discord"
     , className =? "teams-for-linux" --> doShift "6 Teams"
     , className =? "Pavucontrol" --> doShift "7 Lyd"
+    , className =? "Steam" --> doShift "8"
+    , className =? "code-oss" --> doShift "8"
+    , className =? "libreoffice" --> doShift "8"
+    , className =? "lunarclient" --> doShift "8"
+    , className =? "Gimp" --> doShift "8"
     ]
 
 --- Layouts ---
 myLayouts = avoidStruts $
+            gaps [(U,0), (R,0), (L,0), (D,0)] $
 -- Uncomment hvis du vil ha gaps rundt vindu
-            --spacingWithEdge 2 $
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
@@ -140,6 +144,11 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_p), spawn "coreshot") 
       -- Start Nett instillinger
       , ((mod .|. shiftMask, xK_n), spawn "nm-connection-editor")
+      -- AV/PÅ Border
+      , ((mod, xK_Escape), withFocused toggleBorder)
+      -- Gaps
+      , ((mod .|. controlMask, xK_s), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)]) 
+      , ((mod .|. controlMask, xK_a), sendMessage $ setGaps [(U,5), (R,5), (D,5),(L,5)]) 
       -- Lukk Vindu
       , ((mod .|. shiftMask, xK_q), kill)   
       -- Quit xmonad
@@ -231,7 +240,7 @@ myStartupHook = do
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
                 spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --height 20 --monitor 1 --padding 1"
-
+                spawnOnce "~/script/husk_oppdater.sh"
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
