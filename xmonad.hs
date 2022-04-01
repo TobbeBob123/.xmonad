@@ -39,7 +39,8 @@ import XMonad.Layout.Grid
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiColumns
-
+--- Themes ---
+--import XMonad.Util.Themes
 --- Definer variable ---
 myTerminal = "kitty"
 myLauncher = "rofi -show run"
@@ -51,8 +52,8 @@ myFocusFollowsMouse  = True
 
 -- Border
 myBorderWidth = 2
-myFocusColor = "lightblue"
-myNormColor   = "black"
+myFocusColor = "#ff79c6"
+myNormColor   = "#282a36"
 
 -- Set super Key
 myModMask = mod4Mask
@@ -67,6 +68,7 @@ myManageHook = composeAll
     , className =? "download"        --> doFloat
     , className =? "error"           --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
+    , className =? "Gtk2_prefs" --> doFloat
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -239,7 +241,7 @@ myStartupHook = do
                 spawnOnce "teams-for-linux"
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
-                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 000000 --expand true --height 20 --monitor 1 --padding 1"
+                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent false --alpha 0 --tint 282a36 --expand true --height 20 --monitor 1 --padding 1"
                 spawnOnce "~/script/husk_oppdater.sh"
 main :: IO ()
 main = do
@@ -257,9 +259,9 @@ main = do
                , ppOutput = \x -> hPutStrLn xmproc0 x 
                                >> hPutStrLn xmproc1 x 
                                >> hPutStrLn xmproc2 x
-               , ppLayout = xmobarColor "green" "black"
-               , ppCurrent = xmobarColor "white" "black"
-               , ppUrgent = xmobarColor "red" "black"
+               , ppLayout = xmobarColor "#50fa7b" "#282a36"
+               , ppCurrent = xmobarColor "#8be9fd" "#282a36"
+               , ppUrgent = xmobarColor "#ff5555" "#282a36"
                }
        }
           
