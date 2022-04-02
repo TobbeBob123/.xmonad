@@ -26,7 +26,6 @@ import qualified XMonad.Layout.ToggleLayouts as T
 import XMonad.Hooks.UrgencyHook
 import XMonad.Util.WorkspaceCompare
 import XMonad.Actions.CycleWS
-import XMonad.Layout.Spacing
 import XMonad.Hooks.ToggleHook
 import XMonad.Actions.NoBorders
 import XMonad.Layout.Gaps
@@ -39,7 +38,6 @@ import XMonad.Layout.Grid
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiColumns
---- Themes ---
 --import XMonad.Util.Themes
 --- Definer variable ---
 myTerminal = "kitty"
@@ -51,7 +49,7 @@ myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 
 -- Border
-myBorderWidth = 2
+myBorderWidth = 3
 myFocusColor = "#ff79c6"
 myNormColor   = "#282a36"
 
@@ -59,7 +57,7 @@ myNormColor   = "#282a36"
 myModMask = mod4Mask
 
 --- WS ---
-myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8","9"]
+myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Mail","9"]
 
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
@@ -76,24 +74,25 @@ myManageHook = composeAll
     , className =? "discord" --> doShift "5 Discord"
     , className =? "teams-for-linux" --> doShift "6 Teams"
     , className =? "Pavucontrol" --> doShift "7 Lyd"
-    , className =? "Steam" --> doShift "8"
-    , className =? "code-oss" --> doShift "8"
-    , className =? "libreoffice" --> doShift "8"
-    , className =? "lunarclient" --> doShift "8"
-    , className =? "Gimp" --> doShift "8"
+    , className =? "Thunderbird" --> doShift "8 Mail"
+    , className =? "Steam" --> doShift "9"
+    , className =? "code-oss" --> doShift "9"
+    , className =? "libreoffice" --> doShift "9"
+    , className =? "lunarclient" --> doShift "9"
+    , className =? "Gimp" --> doShift "9"
+    , className =? "libreoffice-startcenter" --> doShift "9"
     ]
 
 --- Layouts ---
 myLayouts = avoidStruts $
-            gaps [(U,0), (R,0), (L,0), (D,0)] $
--- Uncomment hvis du vil ha gaps rundt vindu
+            gaps [(U,0), (R,0), (L,0), (D,0)] (
             layoutTall 
         ||| layoutSpiral 
         ||| layoutGrid 
         ||| layoutMirror 
         ||| layoutFloat
         ||| layoutTreeColumns
-        ||| layoutMultiColumns
+        ||| layoutMultiColumns)
 
     where
       layoutTall =
@@ -128,18 +127,10 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
       -- Start Thunar
       , ((mod .|. shiftMask, xK_f), spawn "thunar")
-      -- Start Minecraft
-      , ((mod, xK_m), spawn "lunarclient")
-      -- Start Discord
-      , ((mod .|. shiftMask, xK_d), spawn "discord-canary")
       -- lås PC
       , ((mod, xK_l), spawn "betterlockscreen -l")
-      -- Start Code
-      , ((mod, xK_o), spawn "code")
       -- Start Teams
-      , ((mod, xK_t), spawn "teams-for-linux")
-      -- Start Steam
-      , ((mod .|. shiftMask, xK_o), spawn "steam")
+      , ((mod, xK_t), spawn "thunderbird")
       -- Start pavucontol
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Start Coreshot
@@ -224,7 +215,6 @@ myMouseBindings (XConfig {XMonad.modMask = mod}) = M.fromList $
 
     ]
 
--- Kjør xmonad med alle konfig i denne filen (Ikke fjern)
 myEventHook = mempty
 myLogHook = return ()
 
@@ -241,8 +231,10 @@ myStartupHook = do
                 spawnOnce "teams-for-linux"
                 spawnOnce "librewolf"
                 spawnOnce "pavucontrol"
-                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent false --alpha 0 --tint 282a36 --expand true --height 20 --monitor 1 --padding 1"
+                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 20 --monitor 1 --padding 1"
                 spawnOnce "~/script/husk_oppdater.sh"
+                spawnOnce "thunderbird"
+--- Xmobar ---
 main :: IO ()
 main = do
   xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
@@ -265,6 +257,7 @@ main = do
                }
        }
           
+-- Kjør xmonad med alle konfig i denne filen (Ikke fjern)
 defaults = def { 
       -- simple stuff
         focusFollowsMouse  = myFocusFollowsMouse,
