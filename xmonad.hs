@@ -49,7 +49,7 @@ myFocusFollowsMouse  :: Bool
 myFocusFollowsMouse  = True
 
 -- Border
-myBorderWidth = 3
+myBorderWidth = 1
 myFocusColor = "#ff79c6"
 myNormColor   = "#282a36"
 
@@ -67,6 +67,8 @@ myManageHook = composeAll
     , className =? "error"           --> doFloat
     , className =? "Nm-connection-editor" --> doFloat
     , className =? "Gtk2_prefs" --> doFloat
+    , className =? "Steam" --> doFloat
+    , className =? "lunarclient" --> doFloat
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -74,7 +76,7 @@ myManageHook = composeAll
     , className =? "discord" --> doShift "5 Discord"
     , className =? "teams-for-linux" --> doShift "6 Teams"
     , className =? "Pavucontrol" --> doShift "7 Lyd"
-    , className =? "Thunderbird" --> doShift "8 Mail"
+    , className =? "Mailspring" --> doShift "8 Mail"
     , className =? "Steam" --> doShift "9"
     , className =? "code-oss" --> doShift "9"
     , className =? "libreoffice" --> doShift "9"
@@ -130,7 +132,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- lås PC
       , ((mod, xK_l), spawn "betterlockscreen -l")
       -- Start Teams
-      , ((mod, xK_t), spawn "thunderbird")
+      , ((mod, xK_t), spawn "mailspring")
       -- Start pavucontol
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Start Coreshot
@@ -225,15 +227,11 @@ myStartupHook = do
                 spawnOnce "nm-applet"
                 spawnOnce "xautolock -locker 'systemctl suspend'"
                 spawnOnce myTerminal
-                spawnOnce "thunar" 
                 spawnOnce "signal-desktop"
                 spawnOnce "discord-canary"
                 spawnOnce "teams-for-linux"
-                spawnOnce "librewolf"
-                spawnOnce "pavucontrol"
-                spawnOnce  "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 20 --monitor 1 --padding 1"
-                spawnOnce "~/script/husk_oppdater.sh"
-                spawnOnce "thunderbird"
+                spawnOnce  "trayer --edge top --align right --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
+                spawnOnce "~/Script/husk_oppdater.sh"
 --- Xmobar ---
 main :: IO ()
 main = do
