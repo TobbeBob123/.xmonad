@@ -38,6 +38,7 @@ import XMonad.Layout.Grid
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiColumns
+
 --import XMonad.Util.Themes
 --- Definer variable ---
 myTerminal = "kitty"
@@ -69,6 +70,7 @@ myManageHook = composeAll
     , className =? "Gtk2_prefs" --> doFloat
     , className =? "Steam" --> doFloat
     , className =? "lunarclient" --> doFloat
+    , className =? "Gimp" --> doFloat
     , className =? "kitty" --> doShift "1 Term"
     , className =? "Signal" --> doShift "2 Signal"
     , className =? "Thunar" --> doShift "3 Thunar"
@@ -77,12 +79,16 @@ myManageHook = composeAll
     , className =? "teams-for-linux" --> doShift "6 Teams"
     , className =? "Pavucontrol" --> doShift "7 Lyd"
     , className =? "Mailspring" --> doShift "8 Mail"
+    , className =? "Thunderbird" --> doShift "8 Mail"
+    , title =? "Password Required - Mozilla Thunderbird" --> doShift "1 Term"
+    , title =? "Password Required - Mozilla Thunderbird" --> doFloat
     , className =? "Steam" --> doShift "9"
     , className =? "code-oss" --> doShift "9"
     , className =? "libreoffice" --> doShift "9"
     , className =? "lunarclient" --> doShift "9"
-    , className =? "Gimp" --> doShift "9"
     , className =? "libreoffice-startcenter" --> doShift "9"
+    , className =? "Soffice" --> doFloat
+    , className =? "Soffice" --> doShift "9"
     ]
 
 --- Layouts ---
@@ -119,6 +125,7 @@ myLayouts = avoidStruts $
       layoutMultiColumns =
                  renamed [Replace "MC"]
                  $ multiCol [1] 1 0.01 (-0.5)
+
 --- HotKeys ---
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
@@ -130,9 +137,9 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Thunar
       , ((mod .|. shiftMask, xK_f), spawn "thunar")
       -- lås PC
-      , ((mod, xK_l), spawn "betterlockscreen -l")
-      -- Start Teams
-      , ((mod, xK_t), spawn "mailspring")
+      , ((mod, xK_l), spawn "systemctl suspend")
+      -- Start Mail
+      , ((mod, xK_t), spawn "thunderbird")
       -- Start pavucontol
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Start Coreshot
@@ -225,13 +232,18 @@ myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
                 spawnOnce "nm-applet"
-                spawnOnce "xautolock -locker 'systemctl suspend'"
+                spawnOnce "~/.fehbg"
+                spawn "picom -f"
+                spawn "lxsession"
+                spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
                 spawnOnce myTerminal
                 spawnOnce "signal-desktop"
                 spawnOnce "discord-canary"
                 spawnOnce "teams-for-linux"
                 spawnOnce  "trayer --edge top --align right --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
+                spawnOnce "birdtray"
+                spawnOnce "thunderbird"
 --- Xmobar ---
 main :: IO ()
 main = do
@@ -251,6 +263,8 @@ main = do
                                >> hPutStrLn xmproc2 x
                , ppLayout = xmobarColor "#50fa7b" "#282a36"
                , ppCurrent = xmobarColor "#8be9fd" "#282a36"
+               , ppHiddenNoWindows = xmobarColor "#ff76c6" "#282a36"
+               , ppHidden = xmobarColor "#bd93f9" "#282a36"
                , ppUrgent = xmobarColor "#ff5555" "#282a36"
                }
        }
