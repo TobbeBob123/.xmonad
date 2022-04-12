@@ -39,7 +39,6 @@ import XMonad.Layout.SimpleFloat
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiColumns
 
---import XMonad.Util.Themes
 --- Definer variable ---
 myTerminal = "kitty"
 myLauncher = "rofi -show run"
@@ -58,8 +57,15 @@ myNormColor   = "#282a36"
 myModMask = mod4Mask
 
 --- WS ---
-myWorkspaces = ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Mail","9"]
+xmobarEscape = concatMap doubleLts
+  where doubleLts '<' = "<<"
+        doubleLts x    = [x]
 
+myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Mail","9"]
+    where                                                                       
+              clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
+                             (i,ws) <- zip [1..9] l,                                        
+                            let n = i ] 
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
     , className =? "file_progress"   --> doFloat
@@ -71,20 +77,18 @@ myManageHook = composeAll
     , className =? "Steam" --> doFloat
     , className =? "lunarclient" --> doFloat
     , className =? "Gimp" --> doFloat
-    , className =? "kitty" --> doShift "1 Term"
-    , className =? "Signal" --> doShift "2 Signal"
-    , className =? "Thunar" --> doShift "3 Thunar"
-    , className =? "librewolf" --> doShift "4 Nett" 
-    , className =? "discord" --> doShift "5 Discord"
-    , className =? "teams-for-linux" --> doShift "6 Teams"
-    , className =? "Pavucontrol" --> doShift "7 Lyd"
-    , className =? "Mailspring" --> doShift "8 Mail"
-    , className =? "Thunderbird" --> doShift "8 Mail"
-    , title =? "Password Required - Mozilla Thunderbird" --> doShift "1 Term"
-    , title =? "Password Required - Mozilla Thunderbird" --> doFloat
-    , className =? "Steam" --> doShift "9"
-    , className =? "code-oss" --> doShift "9"
-    , className =? "libreoffice" --> doShift "9"
+    , className =? "kitty" --> doShift (myWorkspaces !! 0)
+    , className =? "Signal" --> doShift (myWorkspaces !! 1)
+    , className =? "Thunar" --> doShift (myWorkspaces !! 2)
+    , className =? "librewolf" --> doShift (myWorkspaces !! 3)  
+    , className =? "discord" --> doShift (myWorkspaces !! 4)
+    , className =? "teams-for-linux" --> doShift (myWorkspaces !! 5)
+    , className =? "Pavucontrol" --> doShift (myWorkspaces !! 6)
+    , className =? "Mailspring" --> doShift (myWorkspaces !! 7)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 7)
+    , className =? "Steam" --> doShift (myWorkspaces !! 8)
+    , className =? "code-oss" --> doShift (myWorkspaces !! 8)
+    , className =? "libreoffice" --> doShift (myWorkspaces !! 8)
     , className =? "lunarclient" --> doShift "9"
     , className =? "libreoffice-startcenter" --> doShift "9"
     , className =? "Soffice" --> doFloat
@@ -161,6 +165,9 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((0, xF86XK_AudioRaiseVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ +5%")
       , ((0, xF86XK_AudioLowerVolume), spawn "pactl set-sink-volume @DEFAULT_SINK@ -5%")
       , ((0, xF86XK_AudioMute), spawn "pactl set-sink-mute 0 toggle")
+      -- Lys
+      , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
+      , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
 --- Layout Hotkeys
       , ((mod .|. shiftMask, xK_s), sendMessage $ JumpToLayout "tall")
       , ((mod, xK_w), sinkAll) 
@@ -240,10 +247,11 @@ myStartupHook = do
                 spawnOnce "signal-desktop"
                 spawnOnce "discord-canary"
                 spawnOnce "teams-for-linux"
-                spawnOnce  "trayer --edge top --align right --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
+                spawnOnce "trayer --edge top --align right --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "birdtray"
                 spawnOnce "thunderbird"
+           
 --- Xmobar ---
 main :: IO ()
 main = do
@@ -253,7 +261,7 @@ main = do
   xmonad $ docks
          $ withUrgencyHook NoUrgencyHook
          $ defaults { 
-         logHook = dynamicLogWithPP xmobarPP            
+         logHook = dynamicLogWithPP $ xmobarPP            
               {
                  ppTitle = const ""
                , ppTitleSanitize = const ""  
