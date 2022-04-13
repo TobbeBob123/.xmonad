@@ -61,7 +61,15 @@ xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
         doubleLts x    = [x]
 
-myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term","2 Signal","3 Thunar","4 Nett","5 Discord","6 Teams","7 Lyd","8 Mail","9"]
+myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
+                                                  "2 Sos",
+                                                  "3 FilS",
+                                                  "4 Nett",
+                                                  "5 Jobb",
+                                                  "6 Lyd",
+                                                  "7 Mail",
+                                                  "8",
+                                                  "9"]
     where                                                                       
               clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip [1..9] l,                                        
@@ -77,22 +85,22 @@ myManageHook = composeAll
     , className =? "Steam" --> doFloat
     , className =? "lunarclient" --> doFloat
     , className =? "Gimp" --> doFloat
+    , className =? "Soffice" --> doFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
+    , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "Thunar" --> doShift (myWorkspaces !! 2)
     , className =? "librewolf" --> doShift (myWorkspaces !! 3)  
-    , className =? "discord" --> doShift (myWorkspaces !! 4)
-    , className =? "teams-for-linux" --> doShift (myWorkspaces !! 5)
-    , className =? "Pavucontrol" --> doShift (myWorkspaces !! 6)
-    , className =? "Mailspring" --> doShift (myWorkspaces !! 7)
-    , className =? "Thunderbird" --> doShift (myWorkspaces !! 7)
+    , className =? "teams-for-linux" --> doShift (myWorkspaces !! 4)
+    , className =? "libreoffice-startcenter" --> doShift (myWorkspaces !! 4)
+    , className =? "Soffice" --> doShift (myWorkspaces !! 4)
+    , className =? "libreoffice" --> doShift (myWorkspaces !! 4)
+    , className =? "code-oss" --> doShift (myWorkspaces !! 4)
+    , className =? "Pavucontrol" --> doShift (myWorkspaces !! 5)
+    , className =? "Mailspring" --> doShift (myWorkspaces !! 6)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 6)
     , className =? "Steam" --> doShift (myWorkspaces !! 8)
-    , className =? "code-oss" --> doShift (myWorkspaces !! 8)
-    , className =? "libreoffice" --> doShift (myWorkspaces !! 8)
-    , className =? "lunarclient" --> doShift "9"
-    , className =? "libreoffice-startcenter" --> doShift "9"
-    , className =? "Soffice" --> doFloat
-    , className =? "Soffice" --> doShift "9"
+    , className =? "lunarclient" --> doShift (myWorkspaces !! 8)
     ]
 
 --- Layouts ---
@@ -150,6 +158,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_p), spawn "coreshot") 
       -- Start Nett instillinger
       , ((mod .|. shiftMask, xK_n), spawn "nm-connection-editor")
+      -- Start Libreoffice
+      , ((mod .|. shiftMask, xK_t), spawn "libreoffice")
       -- AV/PÅ Border
       , ((mod, xK_Escape), withFocused toggleBorder)
       -- Gaps
@@ -245,9 +255,8 @@ myStartupHook = do
                 spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
                 spawnOnce myTerminal
                 spawnOnce "signal-desktop"
-                spawnOnce "discord-canary"
                 spawnOnce "teams-for-linux"
-                spawnOnce "trayer --edge top --align right --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut true --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
+                spawnOnce "trayer --edge top --align center --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut false --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "birdtray"
                 spawnOnce "thunderbird"
