@@ -68,7 +68,7 @@ myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
                                                   "5 Jobb",
                                                   "6 Lyd",
                                                   "7 Mail",
-                                                  "8",
+                                                  "8 Spill",
                                                   "9"]
     where                                                                       
               clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
@@ -99,8 +99,8 @@ myManageHook = composeAll
     , className =? "Pavucontrol" --> doShift (myWorkspaces !! 5)
     , className =? "Mailspring" --> doShift (myWorkspaces !! 6)
     , className =? "Thunderbird" --> doShift (myWorkspaces !! 6)
-    , className =? "Steam" --> doShift (myWorkspaces !! 8)
-    , className =? "lunarclient" --> doShift (myWorkspaces !! 8)
+    , className =? "Steam" --> doShift (myWorkspaces !! 7)
+    , className =? "lunarclient" --> doShift (myWorkspaces !! 7)
     ]
 
 --- Layouts ---
