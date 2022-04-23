@@ -1,0 +1,1 @@
+sed -n '/Start_keys/,/End_keys/p' ~/.xmonad/xmonad.hs | sed -e 's/, (/(/' | sed -e 's/\[ (/(/' | grep -v '\-\- End_' | grep -v '\-\- Start_' | sed -e 's/-- /\n/' | yad --text-info --back=#282a36 --fore=#ff76c6 --geometry=800x500

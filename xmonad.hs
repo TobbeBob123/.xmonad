@@ -1,47 +1,61 @@
 --- Imports ---
 import XMonad hiding ( (|||) )
-import System.Directory
 import XMonad.Core
-import Data.Monoid
-import XMonad.Util.Run
-import XMonad.Util.SpawnOnce
-import System.Exit
-import XMonad.Hooks.ManageDocks
 import qualified XMonad.StackSet as W
+
+-- Keys
+import Graphics.X11.ExtraTypes.XF86
+
+-- Data
 import qualified Data.Map        as M
+import Data.Monoid
+
+-- System
 import System.IO
+import System.Exit
+import System.Directory
+
+-- Actions
+import XMonad.Actions.NoBorders
+import XMonad.Actions.SpawnOn
+import XMonad.Actions.UpdatePointer
+import XMonad.Actions.Navigation2D
+import XMonad.Actions.Promote
+import XMonad.Actions.WithAll 
+import XMonad.Actions.CycleWS
+
+-- Util
+import XMonad.Util.EZConfig
+import XMonad.Util.WorkspaceCompare
+import XMonad.Util.SpawnOnce
+import XMonad.Util.Run
+
+-- Hooks
+import XMonad.Hooks.ToggleHook
+import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Actions.Navigation2D
-import XMonad.Actions.UpdatePointer
-import XMonad.Actions.SpawnOn
-import XMonad.Util.EZConfig
-import Graphics.X11.ExtraTypes.XF86
-import XMonad.Actions.Promote
-import XMonad.Actions.WithAll 
-import XMonad.Layout.LimitWindows
-import XMonad.Layout.NoBorders
-import qualified XMonad.Layout.ToggleLayouts as T
-import XMonad.Hooks.UrgencyHook
-import XMonad.Util.WorkspaceCompare
-import XMonad.Actions.CycleWS
-import XMonad.Hooks.ToggleHook
-import XMonad.Actions.NoBorders
-import XMonad.Layout.Gaps
+import XMonad.Hooks.ManageDocks
+
 -- Layouts
 import XMonad.Layout hiding ( (|||) ) 
 import XMonad.Layout.LayoutCombinators
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spiral
 import XMonad.Layout.Grid
+import XMonad.Layout.SimplestFloat
 import XMonad.Layout.SimpleFloat
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.MultiColumns
+import XMonad.Layout.Gaps
+import XMonad.Layout.LimitWindows
+import XMonad.Layout.NoBorders
+import qualified XMonad.Layout.ToggleLayouts as T
 
 --- Definer variable ---
 myTerminal = "kitty"
-myLauncher = "rofi -show run"
+myLauncher = "dmenu_run -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
 
 --- Regler for Xmonad ---
 -- Fokus vindu der mus er
@@ -84,23 +98,23 @@ myManageHook = composeAll
     , className =? "Gtk2_prefs" --> doFloat
     , className =? "Steam" --> doFloat
     , className =? "lunarclient" --> doFloat
-    , className =? "Gimp" --> doFloat
-    , className =? "Soffice" --> doFloat
+    , className =? "Yad" --> doCenterFloat
+    , className =? "fim" --> doCenterFloat
+    , className =? "CoreImage" --> doCenterFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
-    , className =? "Thunar" --> doShift (myWorkspaces !! 2)
+    , className =? "Pcmanfm" --> doShift (myWorkspaces !! 2)
     , className =? "librewolf" --> doShift (myWorkspaces !! 3)  
     , className =? "teams-for-linux" --> doShift (myWorkspaces !! 4)
-    , className =? "libreoffice-startcenter" --> doShift (myWorkspaces !! 4)
-    , className =? "Soffice" --> doShift (myWorkspaces !! 4)
-    , className =? "libreoffice" --> doShift (myWorkspaces !! 4)
+    , title     =? "LibreOffice" --> doShift (myWorkspaces !! 4)
     , className =? "code-oss" --> doShift (myWorkspaces !! 4)
     , className =? "Pavucontrol" --> doShift (myWorkspaces !! 5)
     , className =? "Mailspring" --> doShift (myWorkspaces !! 6)
     , className =? "Thunderbird" --> doShift (myWorkspaces !! 6)
     , className =? "Steam" --> doShift (myWorkspaces !! 7)
     , className =? "lunarclient" --> doShift (myWorkspaces !! 7)
+    , className =? "Gimp" --> doShift (myWorkspaces !! 8)
     ]
 
 --- Layouts ---
@@ -111,60 +125,70 @@ myLayouts = avoidStruts $
         ||| layoutGrid 
         ||| layoutMirror 
         ||| layoutFloat
+        ||| layoutFull
         ||| layoutTreeColumns
         ||| layoutMultiColumns)
 
     where
       layoutTall =
-                 renamed [Replace "tall"]
+                 renamed [Replace "Tall"]
                  $ Tall 1 (3/100) (1/2)
       layoutSpiral = 
-                 renamed [Replace "sprial"]
+                 renamed [Replace "Sprial"]
                  $ spiral (6/7)
       layoutGrid =
-                 renamed [Replace "grid"]
+                 renamed [Replace "Grid"]
                  $ Grid
       layoutMirror =
-                 renamed [Replace "mirror"]
+                 renamed [Replace "Mirror"]
                  $ Mirror (Tall 1 (3/100) (3/5))
       layoutFloat =
-                 renamed [Replace "float"]
+                 renamed [Replace "Float"]
+                 $ smartBorders
+                 $ limitWindows 20 simplestFloat
+      layoutFull =
+                 renamed [Replace "Full"]
                  $ smartBorders
                  $ limitWindows 20 simpleFloat
       layoutTreeColumns =
-                 renamed [Replace "3C"]
+                 renamed [Replace "Treecolumns"]
                  $ ThreeCol 1 (3/100) (1/2)
       layoutMultiColumns =
-                 renamed [Replace "MC"]
+                 renamed [Replace "Multicolumns"]
                  $ multiCol [1] 1 0.01 (-0.5)
 
 --- HotKeys ---
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
+-- Start_keys
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
+      -- Se Xmonad config
+      , ((controlMask, xK_Return), spawn "kitty kak ~/.xmonad/xmonad.hs")
+      -- Vis Hotkeys
+      , ((controlMask, xK_h), spawn "~/.xmonad/keys.sh")
       -- Start Rofi
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
       , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
-      -- Start Thunar
-      , ((mod .|. shiftMask, xK_f), spawn "thunar")
+      -- Start Fil
+      , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
       , ((mod, xK_l), spawn "systemctl suspend")
       -- Start Mail
       , ((mod, xK_t), spawn "thunderbird")
-      -- Start pavucontol
+      -- Lyd instillinger
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
-      -- Start Coreshot
-      , ((mod, xK_p), spawn "coreshot") 
-      -- Start Nett instillinger
+      -- Ta skjermbilde
+      , ((mod, xK_p), spawn "~/Script/SkjermBilde.sh")
+      -- Nett instillinger
       , ((mod .|. shiftMask, xK_n), spawn "nm-connection-editor")
       -- Start Libreoffice
       , ((mod .|. shiftMask, xK_t), spawn "libreoffice")
       -- AV/PÅ Border
       , ((mod, xK_Escape), withFocused toggleBorder)
       -- Gaps
-      , ((mod .|. controlMask, xK_s), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)]) 
-      , ((mod .|. controlMask, xK_a), sendMessage $ setGaps [(U,5), (R,5), (D,5),(L,5)]) 
+      , ((controlMask, xK_s), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)])
+      , ((controlMask, xK_d), sendMessage $ setGaps [(U,10), (R,10), (D,10),(L,10)])
       -- Lukk Vindu
       , ((mod .|. shiftMask, xK_q), kill)   
       -- Quit xmonad
@@ -179,16 +203,17 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((0, xF86XK_MonBrightnessUp), spawn "lux -a 5%")
       , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
 --- Layout Hotkeys
-      , ((mod .|. shiftMask, xK_s), sendMessage $ JumpToLayout "tall")
-      , ((mod, xK_w), sinkAll) 
-      , ((mod, xK_s), sendMessage $ JumpToLayout "sprial")
-      , ((mod, xK_b), sendMessage $ JumpToLayout "grid")
-      , ((mod, xK_Tab), sendMessage NextLayout)
-      , ((mod, xK_i), sendMessage $ JumpToLayout "mirror")
-      , ((mod, xK_f), sendMessage $ JumpToLayout "float")
-      , ((mod .|. shiftMask, xK_k), sendMessage $ JumpToLayout "3C")
-      , ((mod, xK_c), sendMessage $ JumpToLayout "MC")
-      , ((mod .|. shiftMask, xK_u), withFocused $ windows . W.sink)
+      , ((controlMask, xK_1), sendMessage $ JumpToLayout "Tall")
+      , ((controlMask, xK_w), sinkAll) 
+      , ((controlMask, xK_2), sendMessage $ JumpToLayout "Sprial")
+      , ((controlMask, xK_3), sendMessage $ JumpToLayout "Grid")
+      , ((controlMask, xK_Tab), sendMessage NextLayout)
+      , ((controlMask, xK_4), sendMessage $ JumpToLayout "Mirror")
+      , ((controlMask, xK_5), sendMessage $ JumpToLayout "Float")
+      , ((controlMask, xK_6), sendMessage $ JumpToLayout "Full")
+      , ((controlMask, xK_7), sendMessage $ JumpToLayout "Treecolumns")
+      , ((controlMask, xK_8), sendMessage $ JumpToLayout "Multicolumns")
+      , ((controlMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
       , ((mod, xK_a), windows W.focusMaster) 
       , ((mod, xK_Down), windows W.focusDown)  
@@ -206,8 +231,10 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod .|. shiftMask, xK_Left), shiftPrevScreen)
       , ((mod, xK_j), nextScreen)
       , ((mod, xK_k), prevScreen)
+-- End_keys
+
       ]
-    ++
+    ++ 
 
 -- Workspaces Key binding
 
@@ -248,19 +275,19 @@ myLogHook = return ()
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
-                spawnOnce "nm-applet"
                 spawnOnce "~/.fehbg"
-                spawn "picom -f"
-                spawn "lxsession"
+                spawnOnce "picom -f"
+                spawnOnce "lxsession"
+                spawnOnce "dunst"
+                spawnOnce "nm-applet"
                 spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
                 spawnOnce myTerminal
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
-                spawnOnce "trayer --edge top --align center --distance 5 --widthtype request --expand true --SetDockType true --SetPartialStrut false --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
+                spawnOnce "trayer --edge top --align right --distance 5 --width 3 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
-                spawnOnce "birdtray"
                 spawnOnce "thunderbird"
-           
+
 --- Xmobar ---
 main :: IO ()
 main = do
