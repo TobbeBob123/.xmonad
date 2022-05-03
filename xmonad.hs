@@ -1,4 +1,4 @@
---- Imports ---
+-- Imports ---
 import XMonad hiding ( (|||) )
 import XMonad.Core
 import qualified XMonad.StackSet as W
@@ -55,7 +55,7 @@ import qualified XMonad.Layout.ToggleLayouts as T
 
 --- Definer variable ---
 myTerminal = "kitty"
-myLauncher = "dmenu_run -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
+myLauncher = "dmenu_run -i -p \'Kjør: \' -fn 'Cousine Nerd Font Mono:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
 
 --- Regler for Xmonad ---
 -- Fokus vindu der mus er
@@ -80,9 +80,9 @@ myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
                                                   "3 FilS",
                                                   "4 Nett",
                                                   "5 Jobb",
-                                                  "6 Lyd",
-                                                  "7 Mail",
-                                                  "8 Spill",
+                                                  "6 Mail",
+                                                  "7 Spill",
+                                                  "8",
                                                   "9"]
     where                                                                       
               clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
@@ -100,21 +100,25 @@ myManageHook = composeAll
     , className =? "lunarclient" --> doFloat
     , className =? "Yad" --> doCenterFloat
     , className =? "fim" --> doCenterFloat
+    , className =? "Pavucontrol" --> doCenterFloat
     , className =? "CoreImage" --> doCenterFloat
+    , className =? "Bitwarden" --> doCenterFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "Pcmanfm" --> doShift (myWorkspaces !! 2)
     , className =? "librewolf" --> doShift (myWorkspaces !! 3)  
+    , className =? "Surf" --> doShift (myWorkspaces !! 3)
+    , className =? "qutebrowser" --> doShift (myWorkspaces !! 3)
+    , className =? "tabbed" --> doShift (myWorkspaces !! 3)
+    , className =? "Badwolf" --> doShift (myWorkspaces !! 3)
     , className =? "teams-for-linux" --> doShift (myWorkspaces !! 4)
     , title     =? "LibreOffice" --> doShift (myWorkspaces !! 4)
     , className =? "code-oss" --> doShift (myWorkspaces !! 4)
-    , className =? "Pavucontrol" --> doShift (myWorkspaces !! 5)
-    , className =? "Mailspring" --> doShift (myWorkspaces !! 6)
-    , className =? "Thunderbird" --> doShift (myWorkspaces !! 6)
-    , className =? "Steam" --> doShift (myWorkspaces !! 7)
-    , className =? "lunarclient" --> doShift (myWorkspaces !! 7)
-    , className =? "Gimp" --> doShift (myWorkspaces !! 8)
+    , className =? "Thunderbird" --> doShift (myWorkspaces !! 5)
+    , className =? "Steam" --> doShift (myWorkspaces !! 6)
+    , className =? "lunarclient" --> doShift (myWorkspaces !! 6)
+    , className =? "GeForce NOW" --> doShift (myWorkspaces !! 6)
     ]
 
 --- Layouts ---
@@ -165,17 +169,18 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Se Xmonad config
       , ((controlMask, xK_Return), spawn "kitty kak ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
-      , ((controlMask, xK_h), spawn "~/.xmonad/keys.sh")
+      , ((mod1Mask, xK_h), spawn "~/.xmonad/keys.sh")
       -- Start Rofi
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
-      , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
+      -- , ((mod .|. shiftMask, xK_Tab), spawn "qutebrowser https://startpage.com/")
+      , ((mod .|. shiftMask, xK_Tab), spawn "surf -StaIg startpage.com")
+     -- , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
+     -- , ((mod .|. shiftMask, xK_Tab), spawn "badwolf https://startpage.com/")
       -- Start Fil
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
       , ((mod, xK_l), spawn "systemctl suspend")
-      -- Start Mail
-      , ((mod, xK_t), spawn "thunderbird")
       -- Lyd instillinger
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Ta skjermbilde
@@ -187,8 +192,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- AV/PÅ Border
       , ((mod, xK_Escape), withFocused toggleBorder)
       -- Gaps
-      , ((controlMask, xK_s), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)])
-      , ((controlMask, xK_d), sendMessage $ setGaps [(U,10), (R,10), (D,10),(L,10)])
+      , ((controlMask, xK_z), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)])
+      , ((controlMask, xK_x), sendMessage $ setGaps [(U,10), (R,10), (D,10),(L,10)])
       -- Lukk Vindu
       , ((mod .|. shiftMask, xK_q), kill)   
       -- Quit xmonad
@@ -204,7 +209,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((0, xF86XK_MonBrightnessDown), spawn "lux -s 5%")
 --- Layout Hotkeys
       , ((controlMask, xK_1), sendMessage $ JumpToLayout "Tall")
-      , ((controlMask, xK_w), sinkAll) 
+      , ((mod1Mask, xK_w), sinkAll)
       , ((controlMask, xK_2), sendMessage $ JumpToLayout "Sprial")
       , ((controlMask, xK_3), sendMessage $ JumpToLayout "Grid")
       , ((controlMask, xK_Tab), sendMessage NextLayout)
@@ -223,7 +228,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_space), promote)
 --- Juster Vindu
       , ((mod, xK_u), sendMessage Shrink)
-      , ((mod, xK_v), sendMessage Expand)
+      , ((mod, xK_i), sendMessage Expand)
       , ((mod, xK_Right), nextWS)     
       , ((mod, xK_Left), prevWS)
 --- Skjermer
@@ -277,6 +282,7 @@ myStartupHook = do
                 setWMName "X"
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom -f"
+                spawnOnce "hosts-gen"
                 spawnOnce "lxsession"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
@@ -291,9 +297,7 @@ myStartupHook = do
 --- Xmobar ---
 main :: IO ()
 main = do
-  xmproc0 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-  xmproc1 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
-  xmproc2 <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
+  xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
   xmonad $ docks
          $ withUrgencyHook NoUrgencyHook
          $ defaults { 
@@ -302,9 +306,7 @@ main = do
                  ppTitle = const ""
                , ppTitleSanitize = const ""  
                , ppWsSep = " | "
-               , ppOutput = \x -> hPutStrLn xmproc0 x 
-                               >> hPutStrLn xmproc1 x 
-                               >> hPutStrLn xmproc2 x
+               , ppOutput = \x -> hPutStrLn xmproc x
                , ppLayout = xmobarColor "#50fa7b" "#282a36"
                , ppCurrent = xmobarColor "#8be9fd" "#282a36"
                , ppHiddenNoWindows = xmobarColor "#ff76c6" "#282a36"
