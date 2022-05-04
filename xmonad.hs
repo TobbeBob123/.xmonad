@@ -170,7 +170,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((controlMask, xK_Return), spawn "kitty kak ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
       , ((mod1Mask, xK_h), spawn "~/.xmonad/keys.sh")
-      -- Start Rofi
+      -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
       , ((mod .|. shiftMask, xK_Tab), spawn "surf -StaIg startpage.com")
