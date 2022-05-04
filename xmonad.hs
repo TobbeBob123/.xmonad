@@ -55,7 +55,7 @@ import qualified XMonad.Layout.ToggleLayouts as T
 
 --- Definer variable ---
 myTerminal = "kitty"
-myLauncher = "dmenu_run -i -p \'Kjør: \' -fn 'Cousine Nerd Font Mono:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
+myLauncher = "dmenu_run -i -p \'Kjør:\' -fn 'Source Code Pro:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
 
 --- Regler for Xmonad ---
 -- Fokus vindu der mus er
@@ -173,11 +173,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Rofi
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
-      -- , ((mod .|. shiftMask, xK_Tab), spawn "qutebrowser https://startpage.com/")
       , ((mod .|. shiftMask, xK_Tab), spawn "surf -StaIg startpage.com")
-     -- , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
-     -- , ((mod .|. shiftMask, xK_Tab), spawn "badwolf https://startpage.com/")
-      -- Start Fil
+      -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
       , ((mod, xK_l), spawn "systemctl suspend")
