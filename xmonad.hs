@@ -279,7 +279,6 @@ myStartupHook = do
                 setWMName "X"
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom -f"
-                spawnOnce "hosts-gen"
                 spawnOnce "lxsession"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
