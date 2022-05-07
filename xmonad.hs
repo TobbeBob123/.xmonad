@@ -177,7 +177,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
-      , ((mod, xK_l), spawn "systemctl suspend")
+      , ((mod, xK_l), spawn "light-locker-command -l")
       -- Lyd instillinger
       , ((mod .|. shiftMask, xK_l), spawn "pavucontrol")
       -- Ta skjermbilde
@@ -282,7 +282,7 @@ myStartupHook = do
                 spawnOnce "lxsession"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
-                spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
+                spawnOnce "xautolock -time 30 -locker 'light-locker-command -l'"
                 spawnOnce myTerminal
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
