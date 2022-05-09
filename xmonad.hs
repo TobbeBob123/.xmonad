@@ -164,6 +164,7 @@ myLayouts = avoidStruts $
 --- HotKeys ---
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 -- Start_keys
+-- Tips: <mod> = Win key/Super
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
       -- Se Xmonad config
@@ -278,7 +279,7 @@ myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
                 spawnOnce "~/.fehbg"
-                spawnOnce "picom -f"
+                spawnOnce "picom --experimental-backends"
                 spawnOnce "lxsession"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
