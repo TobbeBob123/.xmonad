@@ -219,8 +219,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((controlMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
       , ((mod, xK_a), windows W.focusMaster) 
-      , ((mod, xK_Down), windows W.focusDown)  
-      , ((mod, xK_Up), windows W.focusUp)    
+      , ((mod, xK_j), windows W.focusDown)  
+      , ((mod, xK_k), windows W.focusUp)    
       , ((mod .|. shiftMask, xK_j), windows W.swapDown)
       , ((mod .|. shiftMask, xK_k), windows W.swapUp)
       , ((mod, xK_space), promote)
@@ -232,8 +232,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 --- Skjermer
       , ((mod .|. shiftMask, xK_Right), shiftNextScreen)
       , ((mod .|. shiftMask, xK_Left), shiftPrevScreen)
-      , ((mod, xK_j), nextScreen)
-      , ((mod, xK_k), prevScreen)
+      , ((mod, xK_Up), nextScreen)
+      , ((mod, xK_Down), prevScreen)
 -- End_keys
 
       ]
