@@ -168,7 +168,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
       -- Se Xmonad config
-      , ((controlMask, xK_Return), spawn "kitty kak ~/.xmonad/xmonad.hs")
+      , ((controlMask, xK_Return), spawn "kitty vim ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
       , ((mod1Mask, xK_h), spawn "~/.xmonad/keys.sh")
       -- Start Program Launcher
