@@ -221,8 +221,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_a), windows W.focusMaster) 
       , ((mod, xK_Down), windows W.focusDown)  
       , ((mod, xK_Up), windows W.focusUp)    
-      , ((mod .|. shiftMask, xK_Down), windows W.swapDown)
-      , ((mod .|. shiftMask, xK_Up), windows W.swapUp)
+      , ((mod .|. shiftMask, xK_j), windows W.swapDown)
+      , ((mod .|. shiftMask, xK_k), windows W.swapUp)
       , ((mod, xK_space), promote)
 --- Juster Vindu
       , ((mod, xK_u), sendMessage Shrink)
