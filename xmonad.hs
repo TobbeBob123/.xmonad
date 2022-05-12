@@ -55,7 +55,8 @@ import qualified XMonad.Layout.ToggleLayouts as T
 
 --- Definer variable ---
 myTerminal = "kitty"
-myLauncher = "dmenu_run -i -p \'Kjør:\' -fn 'Source Code Pro:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
+--myLauncher = "dmenu_run -i -p \'Kjør:\' -fn 'Source Code Pro:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
+myLauncher = "rofi -show run"
 
 --- Regler for Xmonad ---
 -- Fokus vindu der mus er
@@ -170,7 +171,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Se Xmonad config
       , ((controlMask, xK_Return), spawn "kitty vim ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
-      , ((mod1Mask, xK_h), spawn "~/.xmonad/keys.sh")
+      , ((mod, xK_s), spawn "~/.xmonad/keys.sh")
       -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
