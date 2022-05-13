@@ -175,7 +175,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
-      , ((mod .|. shiftMask, xK_Tab), spawn "surf -StaIg startpage.com")
+      , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
       -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
@@ -284,7 +284,7 @@ myStartupHook = do
                 spawnOnce "lxsession"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
-                spawnOnce "xautolock -time 30 -locker 'light-locker-command -l'"
+                spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
                 spawnOnce myTerminal
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
