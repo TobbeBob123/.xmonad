@@ -175,7 +175,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
-      , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
+      , ((mod .|. shiftMask, xK_Tab), spawn "surf -SBdI https://startpage.com")
       -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
@@ -219,7 +219,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((controlMask, xK_8), sendMessage $ JumpToLayout "Multicolumns")
       , ((controlMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
-      , ((mod, xK_a), windows W.focusMaster) 
+      , ((mod, xK_l), windows W.focusMaster) 
       , ((mod, xK_j), windows W.focusDown)  
       , ((mod, xK_k), windows W.focusUp)    
       , ((mod .|. shiftMask, xK_j), windows W.swapDown)
