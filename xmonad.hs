@@ -118,6 +118,7 @@ myManageHook = composeAll
     , title     =? "LibreOffice" --> doShift (myWorkspaces !! 4)
     , className =? "code-oss" --> doShift (myWorkspaces !! 4)
     , className =? "Thunderbird" --> doShift (myWorkspaces !! 5)
+    , className =? "Mailspring" --> doShift (myWorkspaces !! 5)
     , className =? "Steam" --> doShift (myWorkspaces !! 6)
     , className =? "lunarclient" --> doShift (myWorkspaces !! 6)
     , className =? "GeForce NOW" --> doShift (myWorkspaces !! 6)
@@ -283,6 +284,7 @@ myStartupHook = do
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom --experimental-backends"
                 spawnOnce "lxsession"
+                spawnOnce "dbus-update-activation-environment --systemd DISPLAY eval $(/usr/bin/gnome-keyring-deamon --start --components=pkcs11,secrets,ssh) export SSH_AUTH_SOCK &"
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
                 spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
@@ -291,7 +293,7 @@ myStartupHook = do
                 spawnOnce "teams-for-linux"
                 spawnOnce "trayer --edge top --align right --distance 5 --width 3 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
-                spawnOnce "thunderbird"
+                spawnOnce "mailspring"
 
 --- Xmobar ---
 main :: IO ()
