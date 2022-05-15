@@ -56,7 +56,7 @@ import qualified XMonad.Layout.ToggleLayouts as T
 --- Definer variable ---
 myTerminal = "kitty"
 --myLauncher = "dmenu_run -i -p \'Kjør:\' -fn 'Source Code Pro:size=11:bold:antialias=true:hinting=true' -nb '#282a36' -sf '#8be9fd' -sb '#282a36' -nf '#ff79c6'"
-myLauncher = "rofi -show run"
+myLauncher = "rofi -show drun"
 
 --- Regler for Xmonad ---
 -- Fokus vindu der mus er
@@ -104,6 +104,7 @@ myManageHook = composeAll
     , className =? "Pavucontrol" --> doCenterFloat
     , className =? "CoreImage" --> doCenterFloat
     , className =? "Bitwarden" --> doCenterFloat
+    , className =? "stacer" --> doCenterFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
@@ -219,7 +220,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((controlMask, xK_8), sendMessage $ JumpToLayout "Multicolumns")
       , ((controlMask, xK_u), withFocused $ windows . W.sink)
 --- Windows
-      , ((mod, xK_l), windows W.focusMaster) 
+      , ((mod, xK_a), windows W.focusMaster) 
       , ((mod, xK_j), windows W.focusDown)  
       , ((mod, xK_k), windows W.focusUp)    
       , ((mod .|. shiftMask, xK_j), windows W.swapDown)
