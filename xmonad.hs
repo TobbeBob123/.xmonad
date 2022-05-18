@@ -171,9 +171,11 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
       -- Se Xmonad config
-      , ((controlMask, xK_Return), spawn "kitty vim ~/.xmonad/xmonad.hs")
+      , ((mod .|. shiftMask, xK_Return), spawn "kitty vim ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
       , ((mod, xK_s), spawn "~/.xmonad/keys.sh")
+      -- Vis alias for fish
+      , ((mod .|. shiftMask, xK_s), spawn "~/.config/fish/alias.sh")
       -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
