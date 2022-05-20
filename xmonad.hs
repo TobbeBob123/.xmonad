@@ -180,7 +180,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Program Launcher
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
-      , ((mod .|. shiftMask, xK_Tab), spawn "surf -SBdI https://startpage.com")
+      , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
       -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
@@ -244,6 +244,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 
       ]
     ++ 
+-- surf to use instead of LibreWolf under "Nett"
+--, ((mod .|. shiftMask, xK_Tab), spawn "surf -SBdI https://startpage.com")
 
 -- Workspaces Key binding
 
