@@ -284,7 +284,7 @@ myLogHook = return ()
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
-		spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"  
+		--spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"  
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom --experimental-backends"
                 spawnOnce "lxsession"

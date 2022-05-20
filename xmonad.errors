@@ -1,7 +1,7 @@
 
-xmonad.hs:288:1: warning: [-Wtabs]
+xmonad.hs:287:1: warning: [-Wtabs]
     Tab character found here, and in one further location.
     Please use spaces instead.
     |
-288 |                 spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"  
+287 |                 --spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"  
     | ^^^^^^^^
