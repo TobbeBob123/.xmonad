@@ -303,7 +303,6 @@ myStartupHook = do
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
 		        spawnOnce "/usr/bin/emacs --daemon"
-   		        spawnOnce "emacsclient -c -a 'emacs'"
 
 --- Xmobar ---
 main :: IO ()
