@@ -7,7 +7,7 @@ import qualified XMonad.StackSet as W
 import Graphics.X11.ExtraTypes.XF86
 
 -- Data
-import qualified Data.Map        as M
+import qualified Data.Map as M
 import Data.Monoid
 
 -- System
@@ -172,7 +172,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
       -- Se Xmonad config
-      , ((mod .|. shiftMask, xK_Return), spawn "kitty nvim ~/.xmonad/xmonad.hs")
+      , ((mod .|. shiftMask, xK_Return), spawn "emacsclient -c -a 'emacs' ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
       , ((mod, xK_s), spawn "~/.xmonad/keys.sh")
       -- Vis alias for fish
@@ -181,6 +181,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       , ((mod, xK_d), spawn myLauncher)
       -- Start Nett
       , ((mod .|. shiftMask, xK_Tab), spawn "librewolf")
+      -- Start Emacs
+      , ((mod, xK_e), spawn "emacsclient -c -a 'emacs'")
       -- Start FilManager
       , ((mod .|. shiftMask, xK_f), spawn "pcmanfm")
       -- lås PC
@@ -286,7 +288,7 @@ myLogHook = return ()
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
-		--spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"  
+		        --spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom --experimental-backends"
                 spawnOnce "lxsession"
@@ -300,6 +302,8 @@ myStartupHook = do
                 spawnOnce "trayer --edge top --align right --distance 5 --width 3 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
+		        spawnOnce "/usr/bin/emacs --daemon"
+   		        spawnOnce "emacsclient -c -a 'emacs'"
 
 --- Xmobar ---
 main :: IO ()
