@@ -1,5 +1,4 @@
 This is my Xmonad config. 
-
 How to use my config.
 
 First must you git clone this repo with this command.
