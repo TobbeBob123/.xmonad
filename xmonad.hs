@@ -172,7 +172,7 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- Start Terminal
       [ ((mod, xK_Return), spawn myTerminal)
       -- Se Xmonad config
-      , ((mod .|. shiftMask, xK_Return), spawn "kitty vim ~/.xmonad/xmonad.hs")
+      , ((mod .|. shiftMask, xK_Return), spawn "kitty nvim ~/.xmonad/xmonad.hs")
       -- Vis Hotkeys
       , ((mod, xK_s), spawn "~/.xmonad/keys.sh")
       -- Vis alias for fish
