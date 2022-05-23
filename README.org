@@ -1,3 +1,20 @@
+#+title: Xmonad Config
+#+AUTHOR: Tobias Os Finsbol
+#+PROPERTY: header-args :tangle xmonad.hs
+
+* Xmonad Config
+This my Config for xmonad.
+About my config.
+my config file has a feature that let you see my keybindings with a simple keybind (mod4+s).
+You will also need my repo Script to get this to work and my xmobar config to get my bar.
+You can see my complete xmonad desktop in the picture.
+
+![My Xmonad config](https://github.com/TobbeBob123/.xmonad/blob/master/NyTobbeOS_skjermdump.png?raw=true)
+
+* Imports
+This imports are haskell module that are needed for the config to work.
+
+#+begin_src haskell 
 import XMonad hiding ( (|||) )
 import XMonad.Core
 import qualified XMonad.StackSet as W
@@ -44,7 +61,13 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.ToggleLayouts as T
+#+end_src
 
+* Variable
+This where i define my terminal and my app launcher and etc.
+My modkey is mod4/Win key.
+
+#+begin_src haskell 
 myTerminal = "kitty"
 myLauncher = "rofi -show drun"
 
@@ -56,7 +79,11 @@ myFocusColor = "#ff79c6"
 myNormColor   = "#282a36"
 
 myModMask = mod4Mask
+#+end_src
 
+* Workspaces
+Here to I define workspaces name and get them clickable
+#+begin_src haskell 
 --- WS ---
 xmobarEscape = concatMap doubleLts
   where doubleLts '<' = "<<"
@@ -75,7 +102,11 @@ myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
               clickable l = [ "<action=xdotool key super+" ++ show (n) ++ ">" ++ ws ++ "</action>" |
                              (i,ws) <- zip [1..9] l,                                        
                             let n = i ]
+#+end_src
 
+* Window rules
+Here do I make rules for my programs.
+#+begin_src haskell
 myManageHook = composeAll
     [ className =? "confirm"         --> doFloat
     , className =? "file_progress"   --> doFloat
@@ -111,7 +142,11 @@ myManageHook = composeAll
     , className =? "lunarclient" --> doShift (myWorkspaces !! 6)
     , className =? "GeForce NOW" --> doShift (myWorkspaces !! 6)
     ]
+#+end_src
 
+* Layouts
+This is my Layouts
+#+begin_src haskell 
 myLayouts = avoidStruts $
             gaps [(U,0), (R,0), (L,0), (D,0)] (
             layoutTall 
@@ -150,7 +185,11 @@ myLayouts = avoidStruts $
       layoutMultiColumns =
                  renamed [Replace "Multicolumns"]
                  $ multiCol [1] 1 0.01 (-0.5)
+#+end_src
 
+* Keys
+This my keys for my program.
+#+begin_src haskell
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 -- Start_keys
 -- Tips: <mod> = Win key/Super
@@ -265,10 +304,17 @@ myMouseBindings (XConfig {XMonad.modMask = mod}) = M.fromList $
                                        >> windows W.shiftMaster))
 
     ]
+#+end_src
 
+* Not in Use
+#+begin_src haskell
 myEventHook = mempty
 myLogHook = return ()
+#+end_src
 
+* Startup programs
+Here is my startup program. The program who start on boot
+#+begin_src haskell
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
@@ -287,7 +333,11 @@ myStartupHook = do
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
 		spawnOnce "/usr/bin/emacs --daemon"
+#+end_src
 
+* Xmobar
+This is where my Xmobar is define
+#+begin_src haskell
 main :: IO ()
 main = do
   xmproc <- spawnPipe "xmobar -x 0 ~/.config/xmobar/xmobarrc"
@@ -307,7 +357,11 @@ main = do
                , ppUrgent = xmobarColor "#ff5555" "#282a36"
                }
        }
+#+end_src
 
+* ALL
+This is here all the config comes together. (Dont mess with this).
+#+begin_src haskell
 defaults = def { 
       -- simple stuff
         focusFollowsMouse  = myFocusFollowsMouse,
@@ -330,3 +384,5 @@ defaults = def {
         handleEventHook    = myEventHook,
         manageHook         = myManageHook 
     }
+#+end_src
+                      
