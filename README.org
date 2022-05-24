@@ -14,7 +14,7 @@ You can see my complete xmonad desktop in the picture.
 [[https://github.com/TobbeBob123/.xmonad/blob/master/NyTobbeOS_skjermdump.png?raw=true][screenshot]]
 
 * Imports
-This imports are haskell module that are needed for the config to work.
+This imports are haskell module that needed for the config to work.
 
 #+begin_src haskell 
 import XMonad hiding ( (|||) )
