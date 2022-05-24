@@ -14,8 +14,7 @@ You can see my complete xmonad desktop in the picture.
 [[https://github.com/TobbeBob123/.xmonad/blob/master/NyTobbeOS_skjermdump.png?raw=true][screenshot]]
 
 * Imports
-This imports are haskell module that needed for the config to work.
-
+These imports are haskell module that needed for the config to work.
 #+begin_src haskell 
 import XMonad hiding ( (|||) )
 import XMonad.Core
@@ -68,7 +67,6 @@ import qualified XMonad.Layout.ToggleLayouts as T
 * Variable
 This where i define my terminal and my app launcher and etc.
 My modkey is mod4/Win key.
-
 #+begin_src haskell 
 myTerminal = "kitty"
 myLauncher = "rofi -show drun"
@@ -84,7 +82,7 @@ myModMask = mod4Mask
 #+end_src
 
 * Workspaces
-Here to I define workspaces name and get them clickable
+Here do I define workspaces name and get them clickable
 #+begin_src haskell 
 --- WS ---
 xmobarEscape = concatMap doubleLts
@@ -148,7 +146,7 @@ myManageHook = composeAll
 #+end_src
 
 * Layouts
-This is my Layouts
+Here do I define layouts.
 #+begin_src haskell 
 myLayouts = avoidStruts $
             gaps [(U,0), (R,0), (L,0), (D,0)] (
@@ -191,7 +189,7 @@ myLayouts = avoidStruts $
 #+end_src
 
 * Keys
-This my keys for my program.
+This is my keys for my program.
 #+begin_src haskell
 myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
 -- Start_keys
