@@ -93,6 +93,7 @@ myManageHook = composeAll
     , className =? "Bitwarden" --> doCenterFloat
     , className =? "stacer" --> doCenterFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
+    , className =? "Emacs" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
     , className =? "discord" --> doShift (myWorkspaces !! 1)
     , className =? "Pcmanfm" --> doShift (myWorkspaces !! 2)
@@ -280,7 +281,7 @@ myStartupHook = do
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
                 spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
-                spawnOnce myTerminal
+                spawnOnce "emacsclient -c -a 'emacs'"
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
                 spawnOnce "trayer --edge top --align right --distance 5 --width 3 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
