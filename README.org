@@ -1,5 +1,5 @@
 #+title: Xmonad Config
-#+AUTHOR: Tobias Os Finsbol
+#+AUTHOR: Tobias Os Finsbøl
 #+PROPERTY: header-args :tangle xmonad.hs
 
 This my Config for xmonad.
