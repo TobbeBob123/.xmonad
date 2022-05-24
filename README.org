@@ -2,6 +2,7 @@
 #+AUTHOR: Tobias Os Finsbøl
 #+PROPERTY: header-args :tangle xmonad.hs
 
+* Intro
 This my Config for xmonad.
 About my config.
 my config file has a feature that let you see my keybindings with a simple keybind (mod4+s).
