@@ -184,8 +184,8 @@ myKeys conf@(XConfig {XMonad.modMask = mod}) = M.fromList $
       -- AV/PÅ Border
       , ((mod, xK_Escape), withFocused toggleBorder)
       -- Gaps
-      , ((controlMask, xK_z), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)])
-      , ((controlMask, xK_x), sendMessage $ setGaps [(U,10), (R,10), (D,10),(L,10)])
+      , ((controlMask, xK_f), sendMessage $ setGaps [(U,0), (R,0), (D,0),(L,0)])
+      , ((controlMask, xK_a), sendMessage $ setGaps [(U,10), (R,10), (D,10),(L,10)])
       -- Lukk Vindu
       , ((mod .|. shiftMask, xK_q), kill)   
       -- Quit xmonad
