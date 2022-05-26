@@ -3,7 +3,7 @@
 #+PROPERTY: header-args :tangle xmonad.hs
 
 * Intro
-This my Config for xmonad.
+This is my Config for xmonad.
 About my config.
 my config file has a feature that let you see my keybindings with a simple keybind (mod4+s).
 You will also need my repo Script to get this to work and my xmobar config to get my bar. So git clone my Script repo with this command
