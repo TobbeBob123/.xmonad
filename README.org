@@ -7,11 +7,11 @@
 - [[#Imports][Imports]]
 - [[#Variable][Variable]]
 - [[#Workspaces][Workspaces]]
-- [[#Window rules][Window rules]]
+- [[#Window_rules][Window rules]]
 - [[#Keys][Keys]]
-- [[#Startup programs][Startup programs]]
+- [[#Startup_programs][Startup programs]]
 - [[#Xmobar][Xmobar]]
-- [[#All comes Together][Main]]
+- [[#All_comes_Together][Main]]
 
 * Intro
 This is my Config for xmonad.
@@ -115,7 +115,7 @@ myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
                             let n = i ]
 #+end_src
 
-* Window rules
+* Window_rules
 Here do I make rules for my programs.
 #+begin_src haskell
 myManageHook = composeAll
@@ -324,7 +324,7 @@ myEventHook = mempty
 myLogHook = return ()
 #+end_src
 
-* Startup programs
+* Startup_programs
 Here is my startup program. The program who start on boot
 #+begin_src haskell
 myStartupHook :: X ()
@@ -371,7 +371,7 @@ main = do
        }
 #+end_src
 
-* All comes Together
+* All_comes_Together
 This is here all the config comes together. (Dont mess with this).
 #+begin_src haskell
 defaults = def { 
