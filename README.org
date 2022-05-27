@@ -2,6 +2,17 @@
 #+AUTHOR: Tobias Os Finsbøl
 #+PROPERTY: header-args :tangle xmonad.hs
 
+* Content :toc:
+- [[#Intro][Intro]]
+- [[#Imports][Imports]]
+- [[#Variable][Variable]]
+- [[#Workspaces][Workspaces]]
+- [[#Window rules][Window rules]]
+- [[#Keys][Keys]]
+- [[#Startup programs][Startup programs]]
+- [[#Xmobar][Xmobar]]
+- [[#All comes Together][Main]]
+
 * Intro
 This is my Config for xmonad.
 About my config.
@@ -360,7 +371,7 @@ main = do
        }
 #+end_src
 
-* ALL
+* All comes Together
 This is here all the config comes together. (Dont mess with this).
 #+begin_src haskell
 defaults = def { 
@@ -386,4 +397,3 @@ defaults = def {
         manageHook         = myManageHook 
     }
 #+end_src
-                      
