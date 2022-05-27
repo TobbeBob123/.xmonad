@@ -11,7 +11,7 @@
 - [[#Keys][Keys]]
 - [[#Startup_programs][Startup programs]]
 - [[#Xmobar][Xmobar]]
-- [[#All_comes_Together][Main]]
+- [[#Main][Main]]
 
 * Intro
 This is my Config for xmonad.
@@ -371,7 +371,7 @@ main = do
        }
 #+end_src
 
-* All_comes_Together
+* Main
 This is here all the config comes together. (Dont mess with this).
 #+begin_src haskell
 defaults = def { 
