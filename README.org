@@ -21,6 +21,20 @@ You will also need my repo Script to get this to work and my xmobar config to ge
 #+begin_src 
 $ git clone https://github/TobbeBob123/Script.git
 #+end_src
+And if you want my xmobar config run these commands.
+YAY. (AUR):
+#+begin_src 
+$ yay -Syu && yay -S xmobar
+$ rm -rf ~/.config/xmobar
+$ git clone https://github.com/TobbeBob123/xmobar.git ~/.config/xmobar
+#+end_src
+Pacman:
+#+begin_src
+$ sudo pacman -Syu && sudo pacman -S xmobar
+$ rm -rf ~/.config/xmobar
+$ git clone https://github.com/TobbeBob123/xmobar.git ~/.config/xmobar
+#+end_src
+
 You can see my complete xmonad desktop in the picture.
 [[https://github.com/TobbeBob123/.xmonad/blob/master/NyTobbeOS_skjermdump.png?raw=true][screenshot]]
 
