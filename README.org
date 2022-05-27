@@ -82,7 +82,7 @@ myModMask = mod4Mask
 #+end_src
 
 * Workspaces
-Here do I define workspaces name and get them clickable
+Here do I define workspaces name and get them clickable. PS. You must have xdotool installed on your system.
 #+begin_src haskell 
 --- WS ---
 xmobarEscape = concatMap doubleLts
