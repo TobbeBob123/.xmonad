@@ -19,7 +19,7 @@ About my config.
 my config file has a feature that let you see my keybindings with a simple keybind (mod4+s).
 You will also need my repo Script to get this to work and my xmobar config to get my bar. So git clone my Script repo with this command
 #+begin_src 
-$ git clone https://github/TobbeBob123/Script.git
+$ git clone https://github/TobbeBob123/Script.git ~/Script
 #+end_src
 And if you want my xmobar config run these commands.
 YAY. (AUR):
