@@ -12,7 +12,7 @@
 - [[#Startup_programs][Startup programs]]
 - [[#Xmobar][Xmobar]]
 - [[#Main][Main]]
-
+- Main
 * Intro
 This is my Config for xmonad.
 About my config.
