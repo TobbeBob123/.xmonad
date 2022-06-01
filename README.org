@@ -8,6 +8,7 @@
 - [[#Variable][Variable]]
 - [[#Workspaces][Workspaces]]
 - [[#Window_rules][Window rules]]
+- [[#Layouts][Layouts]]
 - [[#Keys][Keys]]
 - [[#Startup_programs][Startup programs]]
 - [[#Xmobar][Xmobar]]
