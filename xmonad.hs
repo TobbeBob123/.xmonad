@@ -126,7 +126,6 @@ myLayouts = avoidStruts $
         ||| layoutFull
         ||| layoutTreeColumns
         ||| layoutMultiColumns)
-
     where
       layoutTall =
                  renamed [Replace "Tall"]
