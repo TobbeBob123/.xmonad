@@ -95,6 +95,7 @@ myManageHook = composeAll
     , className =? "CoreImage" --> doCenterFloat
     , className =? "Bitwarden" --> doCenterFloat
     , className =? "stacer" --> doCenterFloat
+    , className =? "Blueman-manager" --> doCenterFloat
     , className =? "kitty" --> doShift (myWorkspaces !! 0)
     , className =? "Emacs" --> doShift (myWorkspaces !! 0)
     , className =? "Signal" --> doShift (myWorkspaces !! 1)
