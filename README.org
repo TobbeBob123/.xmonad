@@ -87,6 +87,9 @@ import XMonad.Layout.Gaps
 import XMonad.Layout.LimitWindows
 import XMonad.Layout.NoBorders
 import qualified XMonad.Layout.ToggleLayouts as T
+import XMonad.Layout.Simplest
+import XMonad.Layout.SubLayouts
+import XMonad.Layout.WindowNavigation
 #+end_src
 
 * Variable
@@ -199,12 +202,11 @@ myLayouts = avoidStruts $
                  $ Mirror (Tall 1 (3/100) (3/5))
       layoutFloat =
                  renamed [Replace "Float"]
-                 $ smartBorders
                  $ limitWindows 20 simplestFloat
       layoutFull =
                  renamed [Replace "Full"]
                  $ smartBorders
-                 $ limitWindows 20 simpleFloat
+                 $ limitWindows 20 simpleFloat 
       layoutTreeColumns =
                  renamed [Replace "Treecolumns"]
                  $ ThreeCol 1 (3/100) (1/2)
