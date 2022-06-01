@@ -137,15 +137,15 @@ myWorkspaces = clickable . (map xmobarEscape) $  ["1 Term",
 Here do I make rules for my programs.
 #+begin_src haskell
 myManageHook = composeAll
-    [ className =? "confirm"         --> doFloat
-    , className =? "file_progress"   --> doFloat
-    , className =? "dialog"          --> doFloat
-    , className =? "download"        --> doFloat
-    , className =? "error"           --> doFloat
-    , className =? "Nm-connection-editor" --> doFloat
-    , className =? "Gtk2_prefs" --> doFloat
-    , className =? "Steam" --> doFloat
-    , className =? "lunarclient" --> doFloat
+    [ className =? "confirm"         --> doCenterFloat
+    , className =? "file_progress"   --> doCenterFloat
+    , className =? "dialog"          --> doCenterFloat
+    , className =? "download"        --> doCenterFloat
+    , className =? "error"           --> doCenterFloat
+    , className =? "Nm-connection-editor" --> doCenterFloat
+    , className =? "Gtk2_prefs" --> doCenterFloat
+    , className =? "Steam" --> doCenterFloat
+    , className =? "lunarclient" --> doCenterFloat
     , className =? "Yad" --> doCenterFloat
     , className =? "fim" --> doCenterFloat
     , className =? "Pavucontrol" --> doCenterFloat
