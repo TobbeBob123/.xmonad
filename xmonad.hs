@@ -284,9 +284,10 @@ myStartupHook = do
                 spawnOnce "emacsclient -c -a 'emacs'"
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
-                spawnOnce "trayer --edge top --align right --distance 5 --width 3 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
+                spawnOnce "trayer --edge top --align right --distance 5 --width 4 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
+                spawnOnce "blueman-applet"
 		spawnOnce "/usr/bin/emacs --daemon"
 
 main :: IO ()
