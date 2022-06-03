@@ -1,4 +1,4 @@
--- See README before you dive into my config and change my config.
+-- read README.org before you dive into my config and change my config. The best way to read README.org is to see my github at https://github.com/TobbeBob123/.xmonad
 
 import XMonad hiding ( (|||) )
 import XMonad.Core
