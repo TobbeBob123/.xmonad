@@ -38,6 +38,9 @@ $ git clone https://github.com/TobbeBob123/xmobar.git ~/.config/xmobar
 
 You can see my complete xmonad desktop in the picture.
 [[https://github.com/TobbeBob123/.xmonad/blob/master/NyTobbeOS_skjermdump.png?raw=true][screenshot]]
+#+begin_src haskell
+-- See README before you dive into my config and change my config.
+#+end_src
 
 * Imports
 These imports are haskell module that needed for the config to work.

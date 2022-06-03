@@ -1,3 +1,5 @@
+-- See README before you dive into my config and change my config.
+
 import XMonad hiding ( (|||) )
 import XMonad.Core
 import qualified XMonad.StackSet as W
