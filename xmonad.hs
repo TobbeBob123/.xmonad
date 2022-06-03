@@ -269,9 +269,6 @@ myMouseBindings (XConfig {XMonad.modMask = mod}) = M.fromList $
 
     ]
 
-myEventHook = mempty
-myLogHook = return ()
-
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
@@ -329,8 +326,6 @@ defaults = def {
         layoutHook         = myLayouts,
         normalBorderColor  = myNormColor,
         focusedBorderColor = myFocusColor,
-        logHook            = myLogHook,
         startupHook        = myStartupHook,
-        handleEventHook    = myEventHook,
         manageHook         = myManageHook 
     }

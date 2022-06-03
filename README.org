@@ -335,12 +335,6 @@ myMouseBindings (XConfig {XMonad.modMask = mod}) = M.fromList $
     ]
 #+end_src
 
-* Not in Use
-#+begin_src haskell
-myEventHook = mempty
-myLogHook = return ()
-#+end_src
-
 * Startup_programs
 Here is my startup program. The program who start on boot
 #+begin_src haskell
@@ -409,9 +403,7 @@ defaults = def {
         layoutHook         = myLayouts,
         normalBorderColor  = myNormColor,
         focusedBorderColor = myFocusColor,
-        logHook            = myLogHook,
         startupHook        = myStartupHook,
-        handleEventHook    = myEventHook,
         manageHook         = myManageHook 
     }
 #+end_src
