@@ -288,6 +288,7 @@ myStartupHook = do
                 spawnOnce "geary"
                 spawnOnce "blueman-applet"
 		spawnOnce "/usr/bin/emacs --daemon"
+                spawnOnce "blueman-applet"
 
 main :: IO ()
 main = do
