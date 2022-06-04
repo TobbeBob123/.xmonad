@@ -274,7 +274,6 @@ myMouseBindings (XConfig {XMonad.modMask = mod}) = M.fromList $
 myStartupHook :: X ()
 myStartupHook = do
                 setWMName "X"
-		        --spawnOnce "mpv ~/Privat/Frihetens_forpost.mp3"
                 spawnOnce "~/.fehbg"
                 spawnOnce "picom --experimental-backends"
                 spawnOnce "lxsession"
@@ -288,7 +287,7 @@ myStartupHook = do
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
                 spawnOnce "blueman-applet"
-		spawnOnce "/usr/bin/emacs --daemon"
+                spawnOnce "emacs --daemon"
                 spawnOnce "discord"
                 spawnOnce "emacsclient -c -a 'emacs'"
 
