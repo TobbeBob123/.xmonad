@@ -282,7 +282,6 @@ myStartupHook = do
                 spawnOnce "dunst"
                 spawnOnce "nm-applet"
                 spawnOnce "xautolock -time 30 -locker 'systemctl suspend'"
-                spawnOnce "emacsclient -c -a 'emacs'"
                 spawnOnce "signal-desktop"
                 spawnOnce "teams-for-linux"
                 spawnOnce "trayer --edge top --align right --distance 5 --width 5 --expand true --SetDockType true --SetPartialStrut True --transparent true --alpha 0 --tint 0x282A36 --expand true --height 15 --monitor 1 --padding 1"
@@ -291,6 +290,7 @@ myStartupHook = do
                 spawnOnce "blueman-applet"
 		spawnOnce "/usr/bin/emacs --daemon"
                 spawnOnce "discord"
+                spawnOnce "emacsclient -c -a 'emacs'"
 
 main :: IO ()
 main = do
