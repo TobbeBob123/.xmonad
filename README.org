@@ -355,7 +355,7 @@ myStartupHook = do
                 spawnOnce "~/Script/husk_oppdater.sh"
                 spawnOnce "geary"
                 spawnOnce "blueman-applet"
-                spawnOnce "emacs --daemon"
+                spawnOnce "/usr/bin/emacs --daemon"
                 spawnOnce "discord"
                 spawnOnce "emacsclient -c -a 'emacs'"
 #+end_src
